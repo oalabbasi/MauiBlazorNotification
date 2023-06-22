@@ -1,0 +1,27 @@
+﻿@page "/"
+
+@using MauiBlazorNotification.Services
+@using System.Net.Http.Json
+@using System.Globalization;
+
+@inject IJSRuntime JSRuntime
+@inject IFirebaseTokenRetriever FirebaseTokenRetriever
+
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app. your TOKEN is @TOKEN
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+
+@code {
+    private string TOKEN { get; set; }
+
+    protected override void OnInitialized()
+    {
+        //You can add use it or call it at any function and be sure when you send the notifcation from server to use this token
+        var tokenService = DependencyService.Get<IFirebaseTokenRetriever>();
+        TOKEN = tokenService.Token;
+    }
+}
